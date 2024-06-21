@@ -12,7 +12,7 @@ export const userRegistration = async (req, res) => {
 
         const userExist = await User.findOne({ email: data.email });
         if (userExist) {
-            throw new Error('User Already Exist');
+            throw new Error('User Already Exist please login!!');
         }
 
         const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -40,8 +40,14 @@ export const userLogin = async (req, res) => {
 
         const token = jwt.sign({ userId: userExist._id }, JWT_SECRET, { expiresIn: '1h', });
 
-        res.cookie('access_token', token, { maxAge: 900000, httpOnly: true, secure: true }).status(200).json({ token });
+        res.cookie('token', token, { expires: new Date(Date.now() + 86400000), httpOnly: true, secure: true });
+        res.status(200).json({ token });
     } catch (error) {
         res.status(500).json(error.message);
     }
+}
+
+export const userLogout = async (req, res) => {
+    res.clearCookie("token");
+    res.json({ message: "Logged out" });
 }

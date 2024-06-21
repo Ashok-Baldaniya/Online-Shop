@@ -23,5 +23,5 @@ app.use('/user', userRouter);
 // app.use('/review', reviewRouter);
 
 app.listen(process.env.PORT, () => {
-    console.log(`server running on port ${process.env.PORT}`);
+    console.log(`server running on port: ${process.env.PORT}`);
 })
