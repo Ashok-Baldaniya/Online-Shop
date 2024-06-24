@@ -36,7 +36,7 @@ export const userLogin = async (req, res) => {
             throw new Error('Invalid Email or Password');
         }
 
-        const token = jwt.sign({ userId: userExist._id }, JWT_SECRET, { expiresIn: '1h', });
+        const token = jwt.sign({ userId: userExist._id }, JWT_SECRET, { expiresIn: '7h', });
 
         res.cookie('token', token, { expires: new Date(Date.now() + 86400000), httpOnly: true, secure: true });
         res.status(200).json({ token });
