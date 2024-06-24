@@ -15,11 +15,9 @@ export const userRegistration = async (req, res) => {
             throw new Error('User Already Exist please login!!');
         }
 
-        const hashedPassword = await bcrypt.hash(data.password, 10);
-        data.password = hashedPassword;
-
-        const result = await User.create(data);
-        res.status(201).json({ data: result, message: 'User registered successfully' });
+        const result = new User(data);
+        const response = await result.save();
+        res.status(201).json({ data: response, message: 'User registered successfully' });
     } catch (error) {
         res.status(500).json(error.message);
     }
