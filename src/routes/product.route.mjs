@@ -5,9 +5,9 @@ import { verifyToken } from '../middleware/auth.mjs';
 
 const router = Router();
 
-router.route('/add-product').post(uploadMiddleware, addProduct);
+router.route('/add-product').post(verifyToken, uploadMiddleware, addProduct);
 router.route('/update-product/:productId').put(verifyToken, updateProduct);
 router.route('/delete-product/:productId').delete(verifyToken, deleteProduct);
-router.route('/get-products').get(getProducts);
+router.route('/get-products').get(verifyToken, getProducts);
 
 export default router;

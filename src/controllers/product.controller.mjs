@@ -15,7 +15,7 @@ export const updateProduct = async (req, res) => {
         const params = req.params;
         const requestBody = req.body;
 
-        const updatedProduct = await Product.findOneAndUpdate({ _id: params.productId }, requestBody);
+        const updatedProduct = await Product.findByIdAndUpdate({ _id: params.productId }, requestBody);
         res.status(200).json({ data: updatedProduct, message: 'Product updated successfully' });
     } catch (error) {
         res.status(500).json(error.message);
@@ -26,7 +26,7 @@ export const deleteProduct = async (req, res) => {
     try {
         const params = req.params;
 
-        await Product.findOneAndDelete({ _id: params.productId });
+        await Product.findByIdAndDelete({ _id: params.productId });
         res.status(200).json({ message: 'Product deleted successfully' });
     } catch (error) {
         res.status(500).json(error.message);

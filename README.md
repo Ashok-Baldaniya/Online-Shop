@@ -366,7 +366,7 @@ This project plan covers all the essential Node.js topics and features, ensuring
    - Store image files locally or in a cloud storage service.
 
 3. **Categories and Tagging**:
-   - Allow products to be categorized and tagged for better organization and search functionality.
+   - Allow products to be categorized and tagged for better organization and search functionality. //remain
 
 #### 6. Order Processing
 1. **Cart Management**:

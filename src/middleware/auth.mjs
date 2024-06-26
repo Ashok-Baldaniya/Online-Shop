@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 const { JWT_SECRET } = process.env;
 
 export const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.header('Authorization') || req.cookies.token;
     if (!token) {
         return res.status(401).json({ error: 'Access denied' });
     }
@@ -12,7 +12,7 @@ export const verifyToken = (req, res, next) => {
         if (!decoded) {
             throw new Error('Invalid token');
         }
-        req.userId = decoded.userId;
+        req.user = decoded.userId;
         next();
     } catch (error) {
         res.status(401).json({ error: 'Invalid token' });

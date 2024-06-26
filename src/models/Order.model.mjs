@@ -3,31 +3,16 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    user: {
+    cartDetails: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Cart',
         required: true
     },
-    products: [{
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product',
-            required: true
-        },
-        quantity: {
-            type: Number,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        }
-    }],
     totalAmount: {
         type: Number,
         required: true
     },
-    status: {
+    orderStatus: {
         type: String,
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
         default: 'Pending'

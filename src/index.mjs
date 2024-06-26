@@ -8,7 +8,8 @@ dotenv.config();
 
 import userRouter from './routes/user.route.mjs';
 import productRouter from './routes/product.route.mjs';
-// import orderRouter from './routes/order.route.mjs';
+import orderRouter from './routes/order.route.mjs';
+import cartRouter from './routes/cart.route.mjs';
 // import reviewRouter from './routes/review.route.mjs';
 
 dbConnection();
@@ -23,7 +24,8 @@ app.use(cookieParser());
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
-// app.use('/order', orderRouter);
+app.use('/order', orderRouter);
+app.use('/cart', cartRouter);
 // app.use('/review', reviewRouter);
 
 app.listen(process.env.PORT, () => {
