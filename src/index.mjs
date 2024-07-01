@@ -2,7 +2,7 @@ import express from 'express';
 import { dbConnection } from './config/db.mjs';
 import cookieParser from 'cookie-parser';
 // import bodyParser from 'body-parser';
-// import cors from 'cors'
+import cors from 'cors'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('uploads'));
 app.use(cookieParser());
-// app.use(cors());
+app.use(cors());
 
 app.use('/user', userRouter);
 app.use('/product', productRouter);
