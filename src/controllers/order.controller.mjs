@@ -1,6 +1,5 @@
 import Order from '../models/Order.model.mjs';
 import Cart from '../models/Cart.model.mjs';
-import Product from '../models/Product.model.mjs';
 
 export const addOrder = async (req, res) => {
     try {
@@ -35,6 +34,7 @@ export const updateOrder = async (req, res) => {
         }
 
         const items = cartDetail.items;
+        console.log('items', items);
         const priceTotal = items.reduce((total, item) => {
             return total + item.product.price * item.quantity
         }, 0);
@@ -49,7 +49,10 @@ export const updateOrder = async (req, res) => {
 
 export const deleteOrder = async (req, res) => {
     try {
+        const params = req.params;
 
+        await Order.findByIdAndDelete({ _id: params.orderId });
+        res.status(200).json({ message: 'Order deleted successfully' });
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -57,7 +60,9 @@ export const deleteOrder = async (req, res) => {
 
 export const getOrders = async (req, res) => {
     try {
-
+        const params = req.query;
+        const order = await Order.findById(params.orderId);
+        res.status(200).json({ data: order, message: 'Order fetch successfully' });
     } catch (error) {
         res.status(500).json(error.message);
     }
