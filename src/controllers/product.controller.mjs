@@ -1,9 +1,20 @@
 import Product from '../models/Product.model.mjs';
+import path from 'path';
 
 export const addProduct = async (req, res) => {
     try {
         const data = req.body;
+        const files = req.files;
+        const imgPathArray = [];
+
+        for (const file of files) {
+            const filePath = path.join(`../../uploads/${file.originalname}`);
+            console.log('path', filePath);
+            imgPathArray.push(filePath);
+        }
+        data.images = imgPathArray;
         const product = await Product.create(data);
+
         res.status(201).json({ data: product, message: 'Product added successfully' });
     } catch (error) {
         res.status(500).json(error.message);
