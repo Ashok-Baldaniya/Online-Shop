@@ -49,3 +49,13 @@ export const userLogout = async (req, res) => {
     res.clearCookie("token");
     res.json({ message: "Logged out" });
 }
+
+
+export const getUsers = async (req, res) => {
+    try {
+        const users = await User.find().lean();
+        res.status(200).json({ data: users, message: 'All users fetch successfully' });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}

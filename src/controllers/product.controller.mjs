@@ -7,12 +7,15 @@ export const addProduct = async (req, res) => {
         const files = req.files;
         const imgPathArray = [];
 
-        for (const file of files) {
-            const filePath = path.join(`../../uploads/${file.originalname}`);
-            console.log('path', filePath);
-            imgPathArray.push(filePath);
+        if (files) {
+            for (const file of files) {
+                const filePath = path.join(`../../uploads/${file.originalname}`);
+                console.log('path', filePath);
+                imgPathArray.push(filePath);
+            }
+            data.images = imgPathArray;
         }
-        data.images = imgPathArray;
+
         const product = await Product.create(data);
 
         res.status(201).json({ data: product, message: 'Product added successfully' });
@@ -48,7 +51,9 @@ export const getProducts = async (req, res) => {
     try {
         const queryParams = req.query;
         if (!queryParams.productId) {
-            const products = await Product.find();
+            const products = await Product.find().lean();
+
+
             return res.status(200).json({ data: products, message: 'All products fetch successfully' });
         }
 
